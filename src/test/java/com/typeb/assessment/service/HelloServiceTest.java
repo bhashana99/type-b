@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class HelloServiceTest {
+class HelloServiceTest {
 
     private final HelloService service = new HelloService();
 
@@ -45,6 +45,18 @@ public class HelloServiceTest {
     @ValueSource(strings = {"nancy", "Nancy", "ZARA", "n", "N", "z", "Z"})
     void secondHalfAlphabet_isInvalid(String name) {
         assertThat(service.isValidName(name)).isFalse();
+    }
+
+    // Boundary cases
+
+    @Test
+    void letterM_isValidBoundary() {
+        assertThat(service.isValidName("mike")).isTrue();
+    }
+
+    @Test
+    void letterN_isInvalidBoundary() {
+        assertThat(service.isValidName("nick")).isFalse();
     }
 
 
