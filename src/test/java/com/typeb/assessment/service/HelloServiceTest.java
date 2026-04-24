@@ -1,6 +1,8 @@
 package com.typeb.assessment.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -28,5 +30,22 @@ public class HelloServiceTest {
     void nameStartingWithDigit_isInvalid() {
         assertThat(service.isValidName("123abc")).isFalse();
     }
+
+    // A–M range
+
+    @ParameterizedTest
+    @ValueSource(strings = {"alice", "Alice", "ALICE", "a", "A", "mike", "Mike", "m", "M"})
+    void firstHalfAlphabet_isValid(String name) {
+        assertThat(service.isValidName(name)).isTrue();
+    }
+
+    // N–Z range
+
+    @ParameterizedTest
+    @ValueSource(strings = {"nancy", "Nancy", "ZARA", "n", "N", "z", "Z"})
+    void secondHalfAlphabet_isInvalid(String name) {
+        assertThat(service.isValidName(name)).isFalse();
+    }
+
 
 }
