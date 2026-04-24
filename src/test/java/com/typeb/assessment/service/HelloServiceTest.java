@@ -1,5 +1,6 @@
 package com.typeb.assessment.service;
 
+import com.typeb.assessment.dto.HelloResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -59,5 +60,18 @@ class HelloServiceTest {
         assertThat(service.isValidName("nick")).isFalse();
     }
 
+    // greet
+
+    @Test
+    void greet_capitalizesFirstLetter() {
+        HelloResponseDTO response = service.greet("alice");
+        assertThat(response.message()).isEqualTo("Hello Alice");
+    }
+
+    @Test
+    void greet_preservesAlreadyCapitalized() {
+        HelloResponseDTO response = service.greet("Alice");
+        assertThat(response.message()).isEqualTo("Hello Alice");
+    }
 
 }
